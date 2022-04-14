@@ -4,7 +4,7 @@ while read line; do
   echo "$line"
 done < file.txt
 ```
-2. Ssh in loop (use **-n** or **< /dev/null**):
+2. SSH in loop (use **-n** or **< /dev/null**):
 ``` bash
 while read -r line; do
         ssh root@"$I" podman rmi --all < /dev/null
