@@ -30,4 +30,15 @@ end
 - *vagrant global-status* - список виртуальных машин
 - *vagrant halt* - shutdown
 - *vagrant port* - показывает список проброшенных портов
-- *vagrant reload* - команда перезагрузки
+- *vagrant reload* - команда перезагрузки  
+- 
+### Скрипт автозапуска виртуальной машины "NAME" при загрузке средствами crontab
+``` bash
+#!/bin/bash
+sleep 20
+cd /root/kube
+STATUS=$(vagrant status | grep "NAME" | awk '{print $2}')
+if [[ $STATUS = "poweroff" ]]; then
+        vagrant up
+fi
+```
