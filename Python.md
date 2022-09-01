@@ -82,7 +82,7 @@ newlist = numbers[:] # Копирование списка
 k= (1, 2, 3)
 k= (1,) # Кортеж из одного элемента
 ```
-## If
+## Условный оператор If
 ``` python
 if conditional_test_1:  
     do_something_1
@@ -99,4 +99,14 @@ if requested_toppings:
     some_actions
 else
     print("List is empty!")
+```
+## Словари
+``` python
+alien_0 = {} # Пустой словарь
+alien_0 = {'color': 'green', 'points': 5} 
+print(alien_0['color'])  
+print(alien_0['points'])
+del alien_0['points']
+point_value = alien_0.get('points', 'No point value assigned.') # Вернет значение ключа points или значение по умолчанию. Главное не будет ошибки!
+point_value = alien_0.get('points') # Вернет значение ключа points или значение None.
 ```
