@@ -48,4 +48,5 @@ bicycles.append('moto') # Вставка в конец списка
 bicycles.insert(0,'moto') # Вставка со смещением элементов
 del bicycles[0] # Удаление элемента из списка
 popped_bicycle = bicycles.pop() # Удаляет элемент из списка и присваивает его значение переменной
+bicycles.remove('trek') # Удаление по значению
 ```
