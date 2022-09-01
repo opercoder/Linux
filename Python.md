@@ -9,7 +9,7 @@ x, y, z = 0, 0, 0
 "The language 'Python' is named after Monty Python, not the snake."  
 "One of Python's strengths is its diverse and supportive community."  
 ##### Методы
-``` bash
+``` python
 name = " test string "
 print(name.title()) # Сделать первую букву заглавной
 print(name.strip()) # Удаляет пробелы по краям (есть также rstrip, lstrip)
@@ -17,7 +17,7 @@ print(name.upper()) # Сделать все буквы заглавные
 print(name.lower()) # Сделать все буквы в нижнем регистре
 ```
 ##### F-строки
-``` bash
+``` python
 first_name = "ada"
 last_name = "lovelace"
 
@@ -40,7 +40,7 @@ print(message)
 !!! При делении результат всегда типа Float.  
 
 ## Списки
-``` bash
+``` python
 bicycles = ['trek', 'cannondale', 'redline', 'specialized']
 print(bicycles[0])
 print(bicycles[-1].title())
