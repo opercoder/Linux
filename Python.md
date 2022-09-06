@@ -164,3 +164,17 @@ while current_number < 10:
 while 'cat' in pets:
     pets.remove('cat')
 ```
+## Функции
+``` python
+def describe_pet(pet_name, animal_type='dog', animal_age=''): # dog - значение по умолчанию, 
+    """Display information about a pet.""" # Docstring для описания функции
+    print(f"\nI have a {animal_type}.")
+    print(f"My {animal_type}'s name is {pet_name.title()}.")
+    full_name = f"{animal_type} {pet_name}"
+    return full_name.title()
+    
+describe_pet(pet_name='harry')
+describe_pet('harry','hamster')
+describe_pet('whilee')
+name = describe_pet(animal_type='hamster', pet_name='harry')
+```
