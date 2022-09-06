@@ -177,4 +177,66 @@ describe_pet(pet_name='harry')
 describe_pet('harry','hamster')
 describe_pet('whilee')
 name = describe_pet(animal_type='hamster', pet_name='harry')
+# Передача в функцию копию списка, чтобы не модифицировать исходный
+function_name(list_name[:])
+# Передача в функцию переменного количества аргументов
+def make_pizza(*toppings):
+    """Print the list of toppings that have been requested."""
+    print(toppings)
+make_pizza('pepperoni')
+make_pizza('mushrooms', 'green peppers', 'extra cheese')
+# Передача в функцию переменного количества аргументов вида ключ, значение
+def build_profile(first, last, **user_info):
+    """Build a dictionary containing everything we know about a user."""
+    user_info['first_name'] = first
+    user_info['last_name'] = last
+    return user_info
+user_profile = build_profile('albert', 'einstein',location='princeton',field='physics')
+print(user_profile)
+```
+## Импорт
+``` python
+import pizza # Импорт файла pizza.py
+from module_name import function_0, function_1, function_2 # Импорт отдельных функций
+from module_name import function_name as fn # Альяс для функции
+import pizza as p # Альяс для модуля
+from module_name import * # Импорт всех функций модуля
+```
+## Классы
+``` python
+class Dog:
+    """A simple attempt to model a dog."""
+    def __init__(self, name, age):
+        """Initialize name and age attributes."""
+        self.name = name
+        self.age = 0 # значение по умолчанию
+    def sit(self):
+        """Simulate a dog sitting in response to a command."""
+        print(f"{self.name} is now sitting.")
+    def roll_over(self):
+        """Simulate rolling over in response to a command."""
+        print(f"{self.name} rolled over!")
+# Наследование класса
+class ElectricCar(Car):
+    """Represent aspects of a car, specific to electric vehicles."""
+    def __init__(self, make, model, year):
+        """Initialize attributes of the parent class."""
+        super().__init__(make, model, year) # super - специальная функция для вызова метода из родительского класса
+```
+## Чтение из файла
+``` python
+file_path = '/home/ehmatthes/other_files/text_files/filename.txt'
+with open('file_path') as file_object: # with закрывает файл после его использования
+    contents = file_object.read()
+print(contents)
+# Чтение построчно
+with open(filename) as file_object:
+    for line in file_object:
+        print(line.rstrip())
+# Создать список строк из файла
+filename = 'pi_digits.txt'
+with open(filename) as file_object:
+    lines = file_object.readlines()
+for line in lines:
+    print(line.rstrip())
 ```
