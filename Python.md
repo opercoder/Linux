@@ -240,3 +240,38 @@ with open(filename) as file_object:
 for line in lines:
     print(line.rstrip())
 ```
+## Запись в файл
+``` python
+filename = 'programming.txt'
+with open(filename, 'w') as file_object: # r - read, w - write, a - append, r+ - read and write
+    file_object.write("I love programming.")
+```
+## Исключения
+``` python
+# Деление на ноль
+try:
+    print(5/0)
+except ZeroDivisionError:
+    print("You can't divide by zero!")
+# Блок Else - в случае успеха деления, переходим на блок else
+try:
+    answer = int(first_number) / int(second_number)
+except ZeroDivisionError:
+    print("You can't divide by 0!")
+else:
+    print(answer)
+# Не найден файл
+try:
+    with open(filename, encoding='utf-8') as f:
+        contents = f.read()
+    except FileNotFoundError:
+        print(f"Sorry, the file {filename} does not exist.")
+# Не обращать внимание на исключение
+try:
+except FileNotFoundError:
+    pass
+```
+## Сохранение данных
+``` python
+
+```
