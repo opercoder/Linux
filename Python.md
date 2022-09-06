@@ -109,4 +109,58 @@ print(alien_0['points'])
 del alien_0['points']
 point_value = alien_0.get('points', 'No point value assigned.') # Вернет значение ключа points или значение по умолчанию. Главное не будет ошибки!
 point_value = alien_0.get('points') # Вернет значение ключа points или значение None.
+# Цикл по элементам словаря  
+for key, value in user_0.items():
+    print(f"\nKey: {key}")
+    print(f"Value: {value}")
+# Цикл по ключам в отсортированном порядке
+for name in sorted(favorite_languages.keys()):
+    print(f"{name.title()}, thank you for taking the poll.")
+# Цикл по значениям
+for language in favorite_languages.values():
+    print(language.title())
+# Цикл по значениям в словаре без повторений
+for language in set(favorite_languages.values()):
+    print(language.title())
+```
+## Ввод данных
+``` python
+prompt = "If you tell us who you are, we can personalize the messages you see."
+prompt += "\nWhat is your first name? "
+name = input(prompt)
+age = input("How old are you? ") # По умолчанию age типа string
+age = int(age) # Преобразование типов
+age >= 18
+```
+## Цикл While
+``` python
+current_number = 1
+while current_number <= 5:
+    print(current_number)
+    current_number += 1
+# Флаг
+active = True
+while active:
+    message = input(prompt)
+    if message == 'quit':
+        active = False
+    else:
+        print(message)
+# Break
+while True:
+    city = input(prompt)
+    if city == 'quit':
+        break
+    else:
+        print(f"I'd love to go to {city.title()}!")
+# Continue
+current_number = 0
+while current_number < 10:
+    current_number += 1
+    if current_number % 2 == 0:
+        continue
+    print(current_number)
+# Удаление всех вхождений значения в списке
+while 'cat' in pets:
+    pets.remove('cat')
 ```
