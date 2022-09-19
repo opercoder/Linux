@@ -338,3 +338,15 @@ class TestAnonymousSurvey(unittest.TestCase):
         for response in self.responses:
             self.assertIn(response, self.my_survey.responses)
 ```
+## Pandas
+``` python
+pd.read_csv('auto-mpg-quiz.csv', delimiter=',', decimal='.', index_col='name') # Импорт CSV файла
+df = df.drop(['mpg', 'displ', 'yr', 'origin'], axis=1) # Удаление столбца
+df = df.reindex(columns=['hp', 'cyl', 'weight', 'accel']) # Перестановка столбцов
+df[df['cyl']==4] # Фильтр по значениям столбца
+df[(df['cyl']==4) & (df['hp']>80)] # Фильтр по значениям нескольких столбцов
+df.query('cyl==4 and hp>80') # Фильтр по значениям нескольких столбцов
+df.query('(cyl==4 and hp>80) or (cyl==8 and hp>90)') # Фильтр по значениям нескольких столбцов
+round(df['weight'].mean(),3) # Получение среднего значения по столбцу
+round(df.weight.mean(),3) # Получение среднего значения по столбцу
+```
