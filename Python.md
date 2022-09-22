@@ -351,6 +351,7 @@ round(df['weight'].mean(),3) # Получение среднего значен�
 round(df.weight.mean(),3) # Получение среднего значения по столбцу
 df.sort_values(by=['column'])
 all_cars.groupby(['cyl']).count()
+df['Choice_1'].notna() # Не отображает строки со значением NaN
 ```
 ## MatPlotLib
 ``` python
