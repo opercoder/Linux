@@ -92,4 +92,27 @@ db.student.find({age:19},{name:1,_id:false}) # или так
 # Операции сравнения
 # $gt, $lt, $gte, $lte, $ne, $eq
 db.student.find({age:{$lt:20}})
+
+# Логические операции
+# $and, $or, $not
+db.student.find({$or:[{name:"Simon"},{name:"Anna"}]})
+
+# Сортировка результатов запроса
+db.<collection_name>.find([data_filter[, projection]]).sort({options})
+db.student.find().sort({name:-1}) # -1 - в обратном порядке, 1 - прямом
+db.student.find().sort({name:-1}).limit(3) # Отобразить только 3 результата
+db.student.find().sort({name:-1}).skip(1).limit(3) # Пропустить 1 документ
+
+# Агрегирование
+db.student.count()
+
+# Обновление полей
+db.<collection_name>.update({name:Anna, age:29},{$set:{age:30}},{multi:true})
+# Удаление полей
+db.<collection_name>.update({name:Anna},{$unset:{age:30, surname:"JOSEF"}},{multi:true})
+
+# Индексы
+db.student.createIndex({"name":1}, {"inique":true})
+db.student.indexes.find()
+db.student.dropIndex({"name":1})
 ```
