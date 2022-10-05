@@ -73,3 +73,23 @@ PUNSUBSCRIBE <pattern>
 SORT <key> [BY pattern][LIMIT offset count][GET pattern][ASC|DESC][ALPHA][STORE destination]
 ```
 ### MongoDB
+``` Mongo
+# Команды управления
+show dbs # Отображает список доступных баз
+use <name> # Устанавливает активную базу
+db # Отображает имя текущей базы
+db.stats() # Демонстрирует статистику текуще базы
+show collections # Отображает коллекции текущей базы
+db.<collection_name>.insert(document) # Вставляет новый документ в коллекцию
+
+# Выборка данных
+db.<collection_name>.find([data_filter[, projection]]) # filter -  условия для выборки, projection - поля для поиска
+db.<name>.find().pretty() # Вывод в привычном JSON
+db.student.find({age:19},{name:1}) # Вывод имен студентов 19 лет
+db.student.find({age:19},{name:1,_id:0}) # Плюс не отображать id
+db.student.find({age:19},{name:1,_id:false}) # или так
+
+# Операции сравнения
+# $gt, $lt, $gte, $lte, $ne, $eq
+db.student.find({age:{$lt:20}})
+```
