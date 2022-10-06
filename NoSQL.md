@@ -116,3 +116,4 @@ db.student.createIndex({"name":1}, {"inique":true})
 db.student.indexes.find()
 db.student.dropIndex({"name":1})
 ```
+### CASSANDRA
