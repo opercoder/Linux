@@ -28,4 +28,6 @@ git config --global user.name "Your Name"
 #### 413 Request Entity Too Large
 When attaching a file to a comment or reply in GitLab displays a 413 Request Entity Too Large error, the max attachment size is probably larger than the web server’s allowed value.  
 To increase the max attachment size to 200 MB in a Omnibus GitLab install, you may need to add the line below to /etc/gitlab/gitlab.rb before increasing the max attachment size:  
+``` bash
 nginx['client_max_body_size'] = "200m"
+```
