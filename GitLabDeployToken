@@ -1,0 +1,3 @@
+gitlab_user=k8s
+gitlab_token=RCUsop1cbyfHsxx1WpYA
+gitlab_pull_secret=$(echo -n "{\"auths\":{\"may24.gitlab.yandexcloud.net:5050\":{\"auth\":\"`echo -n "$gitlab_user:$gitlab_token"|base64`\"}}}"|base64)
