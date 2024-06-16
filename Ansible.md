@@ -27,8 +27,22 @@ $ sudo apt-get install -y ansible
 ``` ansible hosts -m ping -u [username] ```
 #### Выполнение удаленно команды bash
 ```ansible hosts -a "free -m" -u [username] ```
-#### Информация о системе
-```ansible hosts -m setup ```
+#### Информация о системе (-f число одновременно выполняемых процессов)
+```ansible hosts -m setup -f 1```
+
+#### Playbook.yml
+``` bash
+- hosts: all
+  become: yes
+  tasks:
+  - name: Ensure NTP is installed.
+    dnf: name=chrony state=present
+  - name: Ensure NTP is running.
+    service: name=chronyd state=started enabled=yes
+```
+```ansible-playbook Playbook.yml```
+or without file:  
+```ansible all -b -m yum -a "name=ntp state=present"```
 
 #### Объединение строк
 Чтобы Ansible воспринимал строки как единую строку, в YAML можно воспользоваться знаком «больше»(>).
