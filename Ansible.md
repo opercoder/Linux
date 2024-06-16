@@ -1,8 +1,33 @@
+## Установка
+### On a MAC
+``` console
+$ sudo easy_install pip
+$ sudo pip install ansible
+or
+$ brew install ansible
+```
+### On a Linux
+If you have *python-pip* and *python-devel* (python-dev on Debian/Ubuntu) installed:  
+```$ sudo pip install ansible ```
+### CentOS 7
+``` bash
+$ yum install epel-release
+$ yum -y install ansible
+```
+### Debian/Ubuntu:
+``` console
+$ sudo apt-get install python-software-properties
+$ sudo apt-add-repository -y ppa:ansible/ansible
+$ sudo apt-get update
+$ sudo apt-get install -y ansible
+```
+
 ## Простые комманды, синтаксис
 #### Выполнение удаленно модуля
-ansible kube -m ping
+``` ansible hosts -m ping -u [username] ```
 #### Выполнение удаленно команды bash
-ansible kube -m command -a uptime
+```ansible hosts -a "free -m" -u [username] ```
+
 #### Объединение строк
 Чтобы Ansible воспринимал строки как единую строку, в YAML можно воспользоваться знаком «больше»(>).
 Парсер YAML в этом случае заменит разрывы строк пробелами. Например:  
