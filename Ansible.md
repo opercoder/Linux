@@ -50,8 +50,31 @@ $ ansible all -b -a "service ntpd restart" --limit "*.4" (* - wildcard)
 $ ansible all -b -a "service ntpd restart" --limit ~".*\.4" (tilde - regular expression)
 ```
 
-### Add and delete user
+#### Создание и удаление пользователя
 ``` console
 $ ansible centos7 -b -m user -a "name=testik createhome=yes"
 $ ansible centos7 -b -m user -a "name=testik state=absent remove=yes"
 ```
+#### Установка с помощью кроссплатформенного модуля package
+ansible centos7 -b -m package -a "name=git state=present"
+
+### Работа с файлами
+#### Получение информации о файле
+```ansible centos7 -m stat -a "path=/etc/hostname"```
+#### Копирование файла на группу хостов
+```ansible centos7 -m copy -a "src=/etc/hosts dest=/tmp/hosts"```  
+Для копирования директории / не ставится. Для копирования только содержимого в конце ставится / .
+Подходит для копирования небольших директорий. Для копирования больших каталогов используйте *synchronize* или *rsync*  модули.  
+#### Копирование файлов с хостов
+```ansible centos7 -m fetch -a "src=/etc/hosts dest=/tmp"```  
+Создает в /tmp папки с именами хостов и там уже сам файл по пути /tmp/HOSTNAME/etc/hosts.  
+```ansible centos7 -m fetch -a "src=/etc/hosts dest=/tmp/ flat=yes"```  
+Копирует файл сразу в директорию dest без родительских каталогов.  
+#### Создание директорий и файлов 
+```ansible centos7 -m file -a "dest=/tmp/test mode=644 state=directory"```  
+Создает директорию.
+```ansible centos7 -m file -a "src=/src/file dest=/dest/symlink state=link"```  
+Создает ссылку.
+#### Удаление директорий и файлов
+```ansible centos7 -m file -a "dest=/tmp/test state=absent"```
+### Запуск операций в фоне
