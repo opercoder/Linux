@@ -151,4 +151,18 @@ tasks:
       - restart apache
       - restart memcached
 ```
-Обработчик запускается ТОЛЬКО после окончания плейбука. Если нужно выполнить в середине, то надо использовать модуль meta: flush_handlers.
+Обработчик запускается ТОЛЬКО после окончания плейбука. Если нужно выполнить в середине, то надо использовать модуль meta: flush_handlers.  
+### Переменные окружения
+Лучше передавать через опцию register.  
+``` bash
+- name: Add an env var to the remote user's shell.
+  lineinfile: "dest=~/.bash_profile regexp=^ENV_VAR= \
+  line=ENV_VAR=value"
+
+- name: Get the value of the env var
+  shell: 'source ~/.bash_profile && echo $ENV_VAR'
+  register: foo
+
+- name: Printy the value of the env var.
+  debug: msg="The var is {{ foo.stdout }}" 
+```
