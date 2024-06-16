@@ -118,3 +118,37 @@ ansible centos7 -b -m package -a "name=git state=present"
   - name: Mahe sure Apache is started now and at boot
     service: name=apache state=started enabled=yes
 ```
+#### Limit
+```ansible-playbook playbook.yml --limit centos7```  
+```ansible-playbook playbook.yml --limit host.xyz```
+Показать хосты, для которых применится плейбук, без его запуска:  
+```ansible-playbook playbook.yml --list-hosts```  
+#### User
+```ansible-playbook playbook.yml --user=vasya```  
+```ansible-playbook playbook.yml --become --become-user=petya --ask-become-pass```
+```ansible-playbook playbook.yml --user=vasya -ask-pass```
+### Other options
+- --inventory=PATH (-i PATH) - определяет расположение inventory файла (default: /etc/ansible/hosts)
+- --verbose (-v) - подробный лог, можно -vvvv
+- --extra-vars=VARS (-e VARS) - переменные в формате "key1=value,key2=value"
+- --forks=NUM (-f NUM) - число параллельных процессов (по умолчанию 5)
+- --connection=TYPE (-c TYPE) - тип соединения, по умолчанию ssh. Можно local для выполнения на локальной машине
+- --check - проверка возможности запуска на всех хостах
+#### Handlers
+``` bash
+handlers:
+  - name: restart apache
+    service: name=apache2 state=restarted
+    notify: restart memcached
+
+  - name: restart memcached
+    service: name=memcached state=restarted
+
+tasks:
+  - name: Rebuild app configuration.
+    command: /opt/app/rebuild.sh
+    notify:
+      - restart apache
+      - restart memcached
+```
+Обработчик запускается ТОЛЬКО после окончания плейбука. Если нужно выполнить в середине, то надо использовать модуль meta: flush_handlers.
