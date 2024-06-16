@@ -49,3 +49,9 @@ or without file:
 $ ansible all -b -a "service ntpd restart" --limit "*.4" (* - wildcard)
 $ ansible all -b -a "service ntpd restart" --limit ~".*\.4" (tilde - regular expression)
 ```
+
+### Add and delete user
+``` console
+$ ansible centos7 -b -m user -a "name=testik createhome=yes"
+$ ansible centos7 -b -m user -a "name=testik state=absent remove=yes"
+```
