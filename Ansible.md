@@ -27,6 +27,8 @@ $ sudo apt-get install -y ansible
 ``` ansible hosts -m ping -u [username] ```
 #### Выполнение удаленно команды bash
 ```ansible hosts -a "free -m" -u [username] ```
+#### Информация о системе
+```ansible hosts -m setup ```
 
 #### Объединение строк
 Чтобы Ansible воспринимал строки как единую строку, в YAML можно воспользоваться знаком «больше»(>).
