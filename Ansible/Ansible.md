@@ -166,3 +166,11 @@ tasks:
 - name: Printy the value of the env var.
   debug: msg="The var is {{ foo.stdout }}" 
 ```
+Можно добавить в глобальные переменные /etc/environment:  
+``` bash
+- name: Add a global environment var.
+  lineinfile: "dest=/etc/environment regexp=^ENV_VAR= \
+  line=ENV_VAR=value"
+  become: yes
+```
+Если переменных много, то лучше использовать файл и модули copy или template.
