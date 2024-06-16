@@ -77,4 +77,44 @@ ansible centos7 -b -m package -a "name=git state=present"
 Создает ссылку.
 #### Удаление директорий и файлов
 ```ansible centos7 -m file -a "dest=/tmp/test state=absent"```
-### Запуск операций в фоне
+#### Запуск операций в фоне
+```ansible centos7 -b -B 3600 -P 0 -a "yum -y update"```  
+```ansible centos7 -b -m async_status -a "jid=123456789.1234"```  
+#### Просмотр логов
+```ansible centos7 -b -a "tail /var/log/messages"```  
+```ansible centos7 -b -m shell -a "tail /var/log/messages | grep ansible | wc -l"```  
+#### Редактирование Cron
+```ansible centos7 -b -m cron -a "name='daily-cron-all-servers' hour=4 job='/path/to/daily-script.sh'"``` 
+```ansible centos7 -b -m cron -a "name='daily-cron-all-servers' state=absent"```
+#### Deploy version controlled application
+```ansible centos7 -b -m git -a "repo=git://example.com/path/to/repo.git dest=/opt/myapp update=yes version=1.2.4"```
+
+## PLAYBOOKS
+``` bash
+---
+- name: test1
+  hosts: zabbix
+  become: yes
+
+  tasks:
+  - name: install Apache.
+    apt:
+      name:
+      - vim
+      - apache2
+      state: present
+  - name: copy conf files
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      owner: root
+      group: root
+      mode: 0644
+    with_items:
+    - src: 1.conf
+      dest: /tmp/1.conf
+    - src: 2.conf
+      dest: /tmp/2.conf
+  - name: Mahe sure Apache is started now and at boot
+    service: name=apache state=started enabled=yes
+```
