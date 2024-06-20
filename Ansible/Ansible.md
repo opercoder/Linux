@@ -174,3 +174,59 @@ tasks:
   become: yes
 ```
 Если переменных много, то лучше использовать файл и модули copy или template.
+### Переменные
+Можно передавать через:
+#### команду или в плейбуке
+```ansible-playbook example.yml --extra-vars "foo=bar"```  
+``` bash
+- hosts: example
+  vars:
+    foo: bar
+  tasks:
+    - debug: msg="Variable 'foo' is set to {{ foo }}"
+```
+#### подключаемый отдельный файл
+``` bash
+- hosts: example
+  vars_files:
+    - vars.yml
+  tasks:
+    - debug: msg="Variable 'foo' is set to {{ foo }}"
+```
+Например, для apache и разных ОС можно сделать так:  
+``` bash
+- hosts: example
+  vars_files:
+    - "apache_default.yml"
+    - "apache_{{ ansible_os_family }}.yml"
+  tasks:
+    - service: name={{ apache }} state=running
+```
+#### файл inventory переменные в той же строки и отдельным блоком
+```bash
+[centos]
+app1.example.com proxy_state=present
+app2.example.com proxy_state=absent
+
+[centos:vars]
+aapi_version=3.0.1
+```
+#### Можно добавлять переменные к хосту или группу, используя host_vars и group_vars
+Для этого в директории /etc/ansible/host_vars/app1.example.com или :
+``` bash
+---
+foo: basr
+xyz: qwe
+```
+### Переменная register
+Используется для записи stderr или stdout для последующего использования
+``` bash
+- name: "123"
+  command: forever list
+  register: forever_list
+  changed_when: false
+
+- name: "234"
+  command: forever start
+  when: "forever_list.stdout.find(node_apps_location + '/app/app.js') == -1"
+```
