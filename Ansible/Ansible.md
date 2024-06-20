@@ -230,3 +230,29 @@ xyz: qwe
   command: forever start
   when: "forever_list.stdout.find(node_apps_location + '/app/app.js') == -1"
 ```
+### Обращение к переменным
+``` bash
+foo_list:
+  - one
+  - two
+  - three
+# Обращение к элементу массива
+foo[0]
+foo|first
+```
+``` bash
+tasks:
+  - debug: var=ansible_eth0
+# Обращение к элементу массива
+{{ ansible_eth0.ipv4.address }}
+{{ ansible_eth0['ipv4']['address'] }}
+```
+### Магические переменные
+```bash
+{{ hostvars['host1']['var1'] }}
+hostvars # переменная содержащая все переменные всех хостов
+groups # список всех групп в inventory
+inventory_hostname # имя хоста согласно inventory, может отличаться от ansible_hostname
+inventory_hostname_short # первая часть от inventory_hostname
+play_hosts # все хосты, на которых будет запущен плейбук
+```
