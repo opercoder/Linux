@@ -271,4 +271,35 @@ admin=vasya,petya
 normal=jim
 ```
 Конечно лучше описывать переменные централизованно, но использование фактов на удаленных хостах может быть целесообразно, если они зависят от локальных переменных.  
-## Ansible Vault
+### Ansible Vault
+```bash
+- hosts: appserver
+
+  vars_files:
+    - vars/api_key.yml
+
+  tasks:
+    - name: Connect to service with API key
+      command: connect_to_service
+      environment:
+        SERVICE_API_KEY: "{{ myapp_service_api_key }}"
+```
+Зашифровать файл: ansible-vault encrypt api_key.yml  
+Запустить плейбук с интерактивным запросом пароля: ansible-playbook test.yml --ask-vault-pass  
+Для удоства и автоматизации можно сохранять в файл ~/.ansible/vault_pass.txt с правами 600. Запуск так:   
+```ansible-playbook test.yml --vault-password-file ~/.ansible/vault_pass.txt```  
+## Иерархия переменных
+1. --extra-vars в командной строке (всегда выигрывают)  
+2. уровень task (для блока таск)  
+3. уровень блока (для всех тасков в блоке)  
+4. из модуля include_vars и [role]/vars/main.yml
+5. set_facts модуль
+6. register в таске
+7. vars_files, vars_prompt, vars
+8. host facts
+9. playbook host_vars
+10. playbook group_vars
+11. inventory: host_vars, group_vars, vars
+12. role default ([role]/defaults/main.yml)
+
+## if/then/when
