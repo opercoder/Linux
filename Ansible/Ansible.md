@@ -256,3 +256,19 @@ inventory_hostname # имя хоста согласно inventory, может о
 inventory_hostname_short # первая часть от inventory_hostname
 play_hosts # все хосты, на которых будет запущен плейбук
 ```
+### Факты Gathering Facts
+Факты о хостах собираются в самом начале плейбука (IP, CPU, disk space, OS info, network interface info).  
+Получить весь список фактов: ansible zabbix -m setup   
+Для отключения сбора информации в плейбуке указать:  
+``` bash
+- hosts: db
+  gather_facts: no
+```
+Факты можно хранить локально на хостах в файлах: /etc/ansible/facts.d/nameXXX.fact:
+``` bash
+[users]
+admin=vasya,petya
+normal=jim
+```
+Конечно лучше описывать переменные централизованно, но использование фактов на удаленных хостах может быть целесообразно, если они зависят от локальных переменных.  
+## Ansible Vault
