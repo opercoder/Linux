@@ -303,3 +303,59 @@ normal=jim
 12. role default ([role]/defaults/main.yml)
 
 ## if/then/when
+```bash
+# software_version="4.3.9"
+# is_db_server=true
+- name: Do ....
+  [task here]
+  when: software_version.split('.')[0] == '4'
+  when: (is_db_server is defined) and is_db_server
+```
+```bash
+- command: my-app --status
+  register: myapp_result
+- command: do-something-to-my-app
+  when: "'ready' in myapp_result.stdout"
+```
+```bash
+- command: forever list
+  register: forever_list
+- command: forever start /path/to/app/app.js
+  when: "forever_list.stdout.find('/path/to/app/app.js') == -1"
+```
+```bash
+- stat: path=/etc/hosts
+  register: hosts_file
+- copy: src=path/to/local/file dest=/path/to/remote/file
+  when: hosts_file.stat.exists == false
+```
+### Переопределение вывода failed_when, changed_when
+```bash
+---
+- name: test2
+  hosts: zabbix
+  become: yes 
+  gather_facts: no
+
+  tasks:
+  - command: "echo test"
+    register: composer
+    failed_when: "'tvest' not in composer.stdout" or
+    changed_when: "'tvest' not in composer.stdout"
+```
+### ignore_errors: true - игнорировать любые ошибки
+## Делегирование выполнения в независимости от указанной группы хостов
+```bash
+- name: Add server to monitoring
+  command: monitor-server webservers {{ inventory_hostname }}
+  delegate_to: "{{ monitoring_master }}"
+```
+```bash
+- name: Remove server from load balancer
+  command: remove-from-lb {{ inventory_hostname }}
+  delegate_to: 127.0.0.1
+```
+```bash
+- name: Remove server from load balancer
+  local_action: remove-from-lb {{ inventory_hostname }}
+```
