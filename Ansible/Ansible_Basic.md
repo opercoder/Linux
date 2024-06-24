@@ -359,3 +359,39 @@ normal=jim
 - name: Remove server from load balancer
   local_action: remove-from-lb {{ inventory_hostname }}
 ```
+Для выполнения целого плейбука локально нужно его запускать с пароаметром --connection=local и внутри hosyts: 127.0.0.1.   
+## Пауза при выполнении с wait_for
+```bash
+- name: Wait for web server to start
+  local_action:
+    module: wait_for
+    host: "{{ inventory_hostname }}"
+    port: "{{ webserver_port }}"
+    delay: 10
+    timeout: 300
+    state: started
+```
+## Prompts / параметры вводимые пользователем
+```bash
+- hosts: all
+
+  vars_prompt:
+    - name: share_user
+      prompt: "What is your network user"
+
+    - name: share_user
+      prompt: "What is your network password"
+      private: yes
+      encrypt/confirm/salt_size..
+```
+## Import
+```bash
+tasks:
+  - import_tasks: imported-tasks.yml
+```
+Если же в imported-tasks.yml есть переменная, значение которой должно высчитаться в процессе выполнения плейбука:    
+```bash
+tasks:
+  - include_tasks: imported-tasks.yml
+```
+Можно импортировать плейбуки: import_playbook: web.yml.  
