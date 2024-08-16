@@ -1,7 +1,7 @@
 1. ansible-core на Astra Linux нужна версия от 3.6, так как текущая 3.5
    #### Решение:  
    ``` bash
-   apt install python3.7 python3-distutils
+   apt install -y python3.7 python3-distutils
    update-alternatives --install /usr/bin/python3 python /usr/bin/python3.5 1
    update-alternatives --install /usr/bin/python3 python /usr/bin/python3.7 2
    update-alternatives --list python
